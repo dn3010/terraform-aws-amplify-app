@@ -8,7 +8,7 @@ A Terraform module for building simple Amplify apps. This creates the `master` a
 
 ```hcl
 module "amplify" {
-  source = "git::https://github.com/dn3010/terraform-aws-amplify-app.git?ref=tags/0.1.0"
+  source = "git::https://github.com/dn3010/terraform-aws-amplify-app.git?ref=tags/0.8.2"
 
   namespace                    = var.namespace
   stage                        = var.stage
