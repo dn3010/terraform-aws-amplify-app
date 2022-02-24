@@ -144,7 +144,7 @@ resource "aws_amplify_domain_association" "this" {
 
   sub_domain {
     branch_name = aws_amplify_branch.develop.branch_name
-    prefix      = "dev"
+    prefix      = "develop"
   }
 }
 
