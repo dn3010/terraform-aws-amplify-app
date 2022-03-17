@@ -21,7 +21,8 @@ output "develop_domain_association_arn" {
 output "custom_domains" {
   description = "List of custom domains that are associated with this resource (if any)."
   value = var.master_domain_name == "" ? [] : [
-    var.domain_name,
+    var.master_domain_name,
+    var.develop_domain_name,
     "${var.master_subdomain_prefix}.${var.master_domain_name}",
     "${var.develop_subdomain_prefix}.${var.develop_domain_name}",
   ]
