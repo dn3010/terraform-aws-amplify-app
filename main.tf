@@ -131,25 +131,25 @@ resource "aws_amplify_domain_association" "this" {
 
   sub_domain {
     count       = var.master_environment_enabled ? 1 : 0
-    branch_name = aws_amplify_branch.master.branch_name
+    branch_name = var.master_branch_name
     prefix      = ""
   }
 
   sub_domain {
     count       = var.master_environment_enabled && var.www_on_master_branch ? 1 : 0
-    branch_name = aws_amplify_branch.master.branch_name
+    branch_name = var.master_branch_name
     prefix      = "www"
   }
 
   sub_domain {
     count       = var.master_subdomain_prefix != "" ? 1 : 0
-    branch_name = aws_amplify_branch.master.branch_name
+    branch_name = var.master_branch_name
     prefix      = var.master_subdomain_prefix
   }
 
   sub_domain {
     count       = var.develop_environment_enabled ? 1 : 0
-    branch_name = aws_amplify_branch.develop.branch_name
+    branch_name = var.develop_branch_name
     prefix      = "develop"
   }
 }
@@ -157,7 +157,7 @@ resource "aws_amplify_domain_association" "this" {
 resource "aws_amplify_webhook" "master" {
   count       = var.master_environment_enabled ? 1 : 0
   app_id      = aws_amplify_app.this.id
-  branch_name = aws_amplify_branch.master.branch_name
+  branch_name = var.master_branch_name
   description = "trigger-master"
 
   # NOTE: We trigger the webhook via local-exec so as to kick off the first build on creation of Amplify App.
@@ -169,11 +169,11 @@ resource "aws_amplify_webhook" "master" {
 resource "aws_amplify_webhook" "develop" {
   count       = var.develop_environment_enabled ? 1 : 0
   app_id      = aws_amplify_app.this.id
-  branch_name = aws_amplify_branch.develop.branch_name
+  branch_name = var.develop_branch_name
   description = "trigger-develop"
 
   # NOTE: We trigger the webhook via local-exec so as to kick off the first build on creation of Amplify App.
   provisioner "local-exec" {
-    command = "curl -X POST -d {} '${aws_amplify_webhook.develop.url}&operation=startbuild' -H 'Content-Type:application/json'"
+    command = "curl -X POST -d {} '${aws_amplify_webhook.develop[count.index].url}&operation=startbuild' -H 'Content-Type:application/json'"
   }
 }
