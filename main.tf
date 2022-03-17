@@ -75,6 +75,7 @@ resource "aws_amplify_app" "this" {
 }
 
 resource "aws_amplify_branch" "master" {
+  count                   = var.master_environment_enabled ? 1 : 0
   app_id                  = aws_amplify_app.this.id
   branch_name             = var.master_branch_name
   display_name            = module.master_branch_label.id
@@ -92,6 +93,7 @@ resource "aws_amplify_branch" "master" {
 }
 
 resource "aws_amplify_branch" "develop" {
+  count                       = var.develop_environment_enabled ? 1 : 0
   app_id                      = aws_amplify_app.this.id
   branch_name                 = var.develop_branch_name
   display_name                = module.develop_branch_label.id
@@ -128,27 +130,32 @@ resource "aws_amplify_domain_association" "this" {
   domain_name = var.domain_name
 
   sub_domain {
+    count       = var.master_environment_enabled ? 1 : 0
     branch_name = aws_amplify_branch.master.branch_name
     prefix      = ""
   }
 
   sub_domain {
+    count       = var.master_environment_enabled && var.www_on_master_branch ? 1 : 0
     branch_name = aws_amplify_branch.master.branch_name
     prefix      = "www"
   }
 
   sub_domain {
+    count       = var.master_subdomain_prefix != "" ? 1 : 0
     branch_name = aws_amplify_branch.master.branch_name
-    prefix      = "master"
+    prefix      = var.master_subdomain_prefix
   }
 
   sub_domain {
+    count       = var.develop_environment_enabled ? 1 : 0
     branch_name = aws_amplify_branch.develop.branch_name
     prefix      = "develop"
   }
 }
 
 resource "aws_amplify_webhook" "master" {
+  count       = var.master_environment_enabled ? 1 : 0
   app_id      = aws_amplify_app.this.id
   branch_name = aws_amplify_branch.master.branch_name
   description = "trigger-master"
@@ -160,6 +167,7 @@ resource "aws_amplify_webhook" "master" {
 }
 
 resource "aws_amplify_webhook" "develop" {
+  count       = var.develop_environment_enabled ? 1 : 0
   app_id      = aws_amplify_app.this.id
   branch_name = aws_amplify_branch.develop.branch_name
   description = "trigger-develop"

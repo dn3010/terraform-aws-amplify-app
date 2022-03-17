@@ -8,6 +8,18 @@ variable "repo" {
   description = "The name of the repo that the Amplify App will be created around."
 }
 
+variable "develop_environment_enabled" {
+  default     = true
+  type        = bool
+  description = "Whether to enable the develop environment resources."
+}
+
+variable "master_environment_enabled" {
+  default     = true
+  type        = bool
+  description = "Whether to enable the master environment resources."
+}
+
 variable "amplify_service_role_enabled" {
   default     = false
   type        = bool
@@ -30,6 +42,17 @@ variable "develop_environment_variables" {
   default     = {}
   type        = map(string)
   description = "Environment variables for the develop branch."
+}
+
+variable "master_subdomain_prefix" {
+  type        = string
+  description = "The subdomain prefix to add on master branch."
+}
+
+variable "www_on_master_branch" {
+  default     = false
+  type        = bool
+  description = "Whether to create the www subdomain for the branch master."
 }
 
 variable "master_backend_environment_enabled" {
