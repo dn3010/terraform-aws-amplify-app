@@ -130,7 +130,6 @@ resource "aws_amplify_domain_association" "master" {
   domain_name = var.master_domain_name
 
   sub_domain {
-    count       = var.master_subdomain_prefix != "" ? 1 : 0
     branch_name = var.master_branch_name
     prefix      = var.master_subdomain_prefix
   }
@@ -143,7 +142,6 @@ resource "aws_amplify_domain_association" "develop" {
   domain_name = var.develop_domain_name
 
   sub_domain {
-    count       = var.develop_environment_enabled ? 1 : 0
     branch_name = var.develop_branch_name
     prefix      = var.develop_subdomain_prefix
   }
