@@ -49,6 +49,14 @@ variable "master_subdomain_prefix" {
   description = "The subdomain prefix to add on master branch."
 }
 
+variable "develop_subdomain_prefix" {
+  default     = "develop"
+  type        = string
+  description = "The subdomain prefix to add on master branch."
+}
+
+
+
 variable "www_on_master_branch" {
   default     = false
   type        = bool
@@ -129,10 +137,16 @@ variable "develop_pull_request_preview" {
   description = "Whether to enable preview on PR's into develop."
 }
 
-variable "domain_name" {
+variable "master_domain_name" {
   default     = ""
   type        = string
   description = "The Custom Domain Name to associate with this Amplify App."
+}
+
+variable "develop_domain_name" {
+  default     = ""
+  type        = string
+  description = "The Custom Domain Name to associate with this Amplify App on dev branch."
 }
 
 variable "custom_rules" {
