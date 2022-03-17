@@ -28,22 +28,22 @@ output "custom_domains" {
   ]
 }
 
-output "master_webhook_arn" {
-  description = "The ARN of the master webhook."
-  value       = aws_amplify_webhook.master[0].arn
-}
+# output "master_webhook_arn" {
+#   description = "The ARN of the master webhook."
+#   value       = aws_amplify_webhook.master[0].arn
+# }
 
-output "master_webhook_url" {
-  description = "The URL of the master webhook."
-  value       = aws_amplify_webhook.master[0].url
-}
+# output "master_webhook_url" {
+#   description = "The URL of the master webhook."
+#   value       = aws_amplify_webhook.master[0].url
+# }
 
-output "develop_webhook_arn" {
-  description = "The ARN of the develop webhook."
-  value       = aws_amplify_webhook.develop[0].arn
-}
+# output "develop_webhook_arn" {
+#   description = "The ARN of the develop webhook."
+#   value       = aws_amplify_webhook.develop[0].arn
+# }
 
-output "develop_webhook_url" {
-  description = "The URL of the develop webhook."
-  value       = aws_amplify_webhook.develop[0].url
-}
+# output "develop_webhook_url" {
+#   description = "The URL of the develop webhook."
+#   value       = aws_amplify_webhook.develop[0].url
+# }
